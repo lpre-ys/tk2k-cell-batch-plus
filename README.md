@@ -1,46 +1,40 @@
-# tk2k-cell-batch-plus
+# 一括指定 Plus
 
-This template should help get you started developing with Vue 3 in Vite.
+RPGツクール2000(2003)の戦闘アニメに対して、一括でパラメータを更新するツールです。
 
-## Recommended IDE Setup
+データの読み書きは、クリップボードを通じて行います。
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 起動方法
 
-## Type Support for `.vue` Imports in TS
+Releaseから、最新バージョンのZIPをDL、解凍し、キラキラしたアイコンのexeを起動してください。
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## 使い方
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+デモ動画あります
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+[![デモ動画](http://img.youtube.com/vi/HEn3zQwws_M/0.jpg)](https://www.youtube.com/watch?v=HEn3zQwws_M)
 
-## Customize configuration
+1. RPGツクール上で、戦闘アニメをコピー
+2. 本ツール(一括指定 Plus)の「読み込み」ボタンを押す
+3. 左側「変更内容」にて、変更内容を指定
+4. 「書き出し」ボタンを押し、RPGツクール上の任意の戦闘アニメスロットに「貼り付け」
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## 注意
 
-## Project Setup
+セキュリティ設定が原因で、「読み込み」「書き出し」が失敗するケースがあります。  
+その場合、下記ページを参考に、セキュリティ設定を変更してください。  
 
-```sh
-npm install
-```
+https://github.com/lpre-ys/tk2k-effect-conductor/blob/main/doc/security.md
 
-### Compile and Hot-Reload for Development
+## author
+@lpre_ys
 
-```sh
-npm run dev
-```
+## license
+GNU
 
-### Type-Check, Compile and Minify for Production
+### ライセンスについて補足
+使うだけなら、どなたでも無料でご自由にご利用いただけます。  
+本ツールを使って作成したデータも、無料でご自由にご利用いただけます。
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+ただし、本ツールそのものを改変、再配布したい場合、いくつかの制限が発生します。  
+本ツールの改変・再配布を行いたい場合、ライセンスを熟読の上、ご対応ください。

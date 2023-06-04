@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { BatchEdit } from '@/types/batchEdit'
-import { operatorLabel } from '@/utils/labels'
+import type { BatchEdit } from '@/types/batchEdit'
+import { areaLabel, operatorLabel } from '@/utils/labels'
 import { ref } from 'vue'
 
 const props = defineProps<{
@@ -19,11 +19,17 @@ const onChange = () => {
 
 <template>
   <span class="operator">{{ operatorLabel[batchEdit.operator] }}</span>
-  <input type="number" step="1" v-model="localValue" @change="onChange" />
+  <select v-if="batchEdit.target === 'Area'" v-model="localValue" @change="onChange">
+    <option v-for="(value, key) in areaLabel" :value="key" :key="key">
+      {{ value }}
+    </option>
+  </select>
+  <input v-else type="number" step="1" v-model="localValue" @change="onChange" />
 </template>
 
 <style scoped>
-input {
+input,
+select {
   font-size: 1.3rem;
   width: 3em;
   border: none;

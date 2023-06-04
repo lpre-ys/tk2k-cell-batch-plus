@@ -57,18 +57,6 @@ const targetLabel = Object.assign({}, cellTargetLabel, effectTargetLabel)
         </template>
       </draggable>
     </ol>
-    <!-- <ol>
-      <li v-for="(batchEdit, index) in batchEdits" :key="index">
-        {{ typeLabel[batchEdit.type] }}
-        <small>の</small>
-        {{ targetLabel[batchEdit.target] }}
-        <span class="operator">{{ getOperator(batchEdit) }}</span>
-        {{ getValue(batchEdit) }}
-        <div class="close-button" @click="$emit('delete', index)">
-          <font-awesome-icon :icon="['far', 'circle-xmark']" />
-        </div>
-      </li>
-    </ol> -->
   </div>
 </template>
 

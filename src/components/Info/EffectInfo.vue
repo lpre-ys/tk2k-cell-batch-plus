@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import type { Effect } from '@/types/animeData'
+import type { Area, Effect } from '@/types/animeData'
 import type { BatchEdit, CellTarget, EffectTarget } from '@/types/batchEdit'
 import calcEditedEffects from '@/utils/calcEditedEffects'
+import { areaLabel } from '@/utils/labels'
 import { computed, ref } from 'vue'
+import EditedFrameValue from './EditedFrameValue.vue'
+import EditedMinMaxValue from './EditedMinMaxValue.vue'
 import EditedValue from './EditedValue.vue'
 
 const props = defineProps<{
@@ -30,12 +33,6 @@ const checkEdited = (key: EffectTarget) => {
   return updateColumns.value.has(key)
 }
 
-const areaLabel: Record<number, string> = {
-  0: 'なし',
-  1: '対象',
-  2: '画面'
-}
-
 const isShowData = ref(true)
 
 const toggleShow = () => {
@@ -61,7 +58,7 @@ const toggleShow = () => {
           <tr>
             <th>ファイル</th>
             <th>音量</th>
-            <th>ピッチ</th>
+            <th>テンポ</th>
             <th class="header-line">ﾊﾞﾗﾝｽ</th>
             <th>範囲</th>
             <th>赤</th>
@@ -72,7 +69,7 @@ const toggleShow = () => {
         </thead>
         <tbody>
           <tr v-for="(effect, index) in editedEffects" :key="index">
-            <EditedValue
+            <EditedFrameValue
               class="number line"
               :pre-value="effects[index].frame"
               :value="effect.frame"
@@ -83,53 +80,67 @@ const toggleShow = () => {
             </template>
             <template v-else>
               <td class="file">{{ effect.sound.file }}</td>
-              <EditedValue
+              <EditedMinMaxValue
                 class="number"
                 :pre-value="effects[index].sound.volume"
                 :value="effect.sound.volume"
                 :is-edited="checkEdited('SoundVolume')"
+                :min="0"
+                :max="100"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 class="number"
                 :pre-value="effects[index].sound.pitch"
                 :value="effect.sound.pitch"
                 :is-edited="checkEdited('Pitch')"
+                :min="50"
+                :max="150"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 class="number line"
                 :pre-value="effects[index].sound.pan"
                 :value="effect.sound.pan"
                 :is-edited="checkEdited('Pan')"
+                :min="0"
+                :max="100"
               />
             </template>
             <template v-if="effect.flash.area === 0">
-              <td colspan="5" class="hidden">{{ areaLabel[effect.flash.area] }}</td>
+              <td colspan="5" class="hidden">{{ areaLabel[effect.flash.area as Area] }}</td>
             </template>
             <template v-else>
-              <td>{{ areaLabel[effect.flash.area] }}</td>
-              <EditedValue
+              <td>{{ areaLabel[effect.flash.area as Area] }}</td>
+              <EditedMinMaxValue
                 class="number"
                 :pre-value="effects[index].flash.r"
                 :value="effect.flash.r"
                 :is-edited="checkEdited('R')"
+                :min="0"
+                :max="31"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 class="number"
                 :pre-value="effects[index].flash.g"
                 :value="effect.flash.g"
                 :is-edited="checkEdited('G')"
+                :min="0"
+                :max="31"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 class="number"
                 :pre-value="effects[index].flash.b"
                 :value="effect.flash.b"
                 :is-edited="checkEdited('B')"
+                :min="0"
+                :max="31"
               />
               <EditedValue
                 class="number"
                 :pre-value="effects[index].flash.volume"
                 :value="effect.flash.volume"
                 :is-edited="checkEdited('FlashVolume')"
+                :min="0"
+                :max="31"
               />
             </template>
           </tr>

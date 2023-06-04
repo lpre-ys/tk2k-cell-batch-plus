@@ -1,17 +1,23 @@
 {
   "name": "tk2k-cell-batch-plus",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
-  "main": "public/electron.js",
+  "main": "electron/electron.js",
+  "license": "GPL",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
+    "clean": "rimraf dist",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "electron": "electron ."
+    "test": "vitest",
+    "electron": "electron .",
+    "electron-clean": "rimraf build",
+    "electron-build": "electron-builder -w",
+    "release": "run-s clean electron-clean build electron-build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -24,6 +30,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
+    "@testing-library/vue": "^7.0.0",
     "@tsconfig/node18": "^2.0.1",
     "@types/node": "^18.16.14",
     "@vitejs/plugin-vue": "^4.2.3",
@@ -35,10 +42,37 @@
     "electron-builder": "^24.4.0",
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
+    "happy-dom": "^9.20.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
+    "rimraf": "^5.0.1",
     "typescript": "~5.0.4",
     "vite": "^4.3.5",
+    "vitest": "^0.31.3",
     "vue-tsc": "^1.6.4"
+  },
+  "build": {
+    "appId": "com.lpre-ys.cell-batch-plus",
+    "productName": "CellBatchPlus",
+    "files": [
+      "electron/**/*",
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraFiles": [
+      "README.md",
+      "LICENSE"
+    ],
+    "asarUnpack": [
+      "node_modules/tk2k-clipdata/"
+    ],
+    "directories": {
+      "buildResources": "asset",
+      "output": "build"
+    },
+    "win": {
+      "icon": "asset/icon.ico",
+      "target": "zip"
+    }
   }
 }

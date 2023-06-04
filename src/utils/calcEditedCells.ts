@@ -8,17 +8,15 @@ export default function (cells: Cell[], batchEdits: BatchEdit[]) {
       if (type !== 'Cell') {
         return preCell // 処理無し
       }
-      if (!preCell.visible) {
-        return preCell //処理無し
-      }
       const key = target.toLowerCase() as keyof Cell
-      if (key === 'visible') {
-        return preCell //処理無し
-      }
       const newCell = Object.assign({}, preCell)
       if (key === 'frame') {
-        // TODO 特殊処理！！！
+        // Frameに限り、非表示でも計算を行う
+        newCell[key] = calcNumber(newCell[key] as number, operator, value)
         return newCell
+      }
+      if (!preCell.visible || key === 'visible') {
+        return preCell //処理無し
       }
       newCell[key] = calcNumber(newCell[key] as number, operator, value)
       return newCell

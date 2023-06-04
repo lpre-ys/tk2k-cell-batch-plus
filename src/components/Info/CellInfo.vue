@@ -3,6 +3,8 @@ import type { Cell } from '@/types/animeData'
 import type { BatchEdit, CellTarget, EffectTarget } from '@/types/batchEdit'
 import calcEditedCells from '@/utils/calcEditedCells'
 import { computed, ref } from 'vue'
+import EditedFrameValue from './EditedFrameValue.vue'
+import EditedMinMaxValue from './EditedMinMaxValue.vue'
 import EditedValue from './EditedValue.vue'
 
 const props = defineProps<{
@@ -75,12 +77,18 @@ const toggleShow = () => {
             v-bind:class="cell.no !== editedCells[index + 1]?.no ? 'line' : ''"
           >
             <td class="number">{{ cell.no }}</td>
-            <td class="number">{{ cell.frame }}</td>
+            <EditedFrameValue
+              :pre-value="cells[index].frame"
+              :value="cell.frame"
+              :is-edited="checkEdited('Frame')"
+            />
             <template v-if="cell.visible">
-              <EditedValue
+              <EditedMinMaxValue
                 :pre-value="cells[index].pattern"
                 :value="cell.pattern"
                 :is-edited="checkEdited('Pattern')"
+                :min="1"
+                :max="25"
               />
               <EditedValue
                 :pre-value="cells[index].x"
@@ -92,35 +100,47 @@ const toggleShow = () => {
                 :value="cell.y"
                 :is-edited="checkEdited('Y')"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 :pre-value="cells[index].scale"
                 :value="cell.scale"
                 :is-edited="checkEdited('Scale')"
+                :min="0"
+                :max="Infinity"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 :pre-value="cells[index].alpha"
                 :value="cell.alpha"
                 :is-edited="checkEdited('Alpha')"
+                :min="0"
+                :max="100"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 :pre-value="cells[index].r"
                 :value="cell.r"
                 :is-edited="checkEdited('R')"
+                :min="0"
+                :max="200"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 :pre-value="cells[index].g"
                 :value="cell.g"
                 :is-edited="checkEdited('G')"
+                :min="0"
+                :max="200"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 :pre-value="cells[index].b"
                 :value="cell.b"
                 :is-edited="checkEdited('B')"
+                :min="0"
+                :max="200"
               />
-              <EditedValue
+              <EditedMinMaxValue
                 :pre-value="cells[index].sat"
                 :value="cell.sat"
                 :is-edited="checkEdited('Sat')"
+                :min="0"
+                :max="200"
               />
             </template>
             <template v-else>

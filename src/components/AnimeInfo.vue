@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { AnimeData } from '@/types/animeData'
 import type { BatchEdit } from '@/types/batchEdit'
+import calcEditedCells from '@/utils/calcEditedCells'
+import { computed } from 'vue'
 import CellInfo from './Info/CellInfo.vue'
 import EffectInfo from './Info/EffectInfo.vue'
 
-defineProps<{
+const props = defineProps<{
   animeData: AnimeData | null
   batchEdits: BatchEdit[]
 }>()
@@ -18,6 +20,17 @@ const yLineLabels: Record<number, string> = {
   1: '中心',
   2: '足元'
 }
+
+const editedFrame = computed(() => {
+  if (!props.animeData) {
+    return 0
+  }
+  const editedCells = calcEditedCells(props.animeData.cells, props.batchEdits)
+  const frames = editedCells.map((cell) => {
+    return cell.frame
+  })
+  return frames ? Math.max(...frames) : props.animeData.frame
+})
 </script>
 
 <template>
@@ -32,7 +45,10 @@ const yLineLabels: Record<number, string> = {
       <dt>Y座標:</dt>
       <dd>{{ yLineLabels[animeData?.yLine] }}</dd>
       <dt>フレーム数:</dt>
-      <dd>{{ animeData?.frame }}</dd>
+      <dd v-if="animeData.frame >= editedFrame">{{ animeData.frame }}</dd>
+      <dd v-else>
+        {{ animeData.frame }} → <span class="edited">{{ editedFrame }}</span>
+      </dd>
     </dl>
     <EffectInfo :effects="animeData.effects" :batchEdits="batchEdits" />
     <CellInfo :cells="animeData.cells" :batchEdits="batchEdits" />
@@ -55,5 +71,9 @@ dt {
   display: flex;
   flex-flow: column;
   min-width: 460px;
+}
+.edited {
+  font-weight: bold;
+  color: #7e57c2;
 }
 </style>

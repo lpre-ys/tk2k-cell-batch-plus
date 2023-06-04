@@ -38,6 +38,10 @@ const hidePre = () => {
   cursor: pointer;
 }
 
+.warn {
+  color: #f06292;
+}
+
 .pre {
   font-weight: normal;
   color: black;

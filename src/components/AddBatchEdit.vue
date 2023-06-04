@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { BatchEdit, CellTarget, EffectTarget, Operator, TargetType } from '@/types/batchEdit'
-import { cellTargetLabel, effectTargetLabel, typeLabel, operatorLabel } from '@/utils/labels'
+import {
+  cellTargetLabel,
+  effectTargetLabel,
+  typeLabel,
+  operatorLabel,
+  areaLabel
+} from '@/utils/labels'
 import { computed, ref, watch } from 'vue'
 
 const emits = defineEmits<{ (e: 'add-batch-edit', value: BatchEdit): void }>()
@@ -17,6 +23,10 @@ const targetList = computed(() => {
 const operatorList = computed(() => {
   if (target.value === 'Frame') {
     return { Plus: '+' }
+  }
+
+  if (target.value === 'Area') {
+    return { Assign: '=' }
   }
 
   return operatorLabel
@@ -36,7 +46,7 @@ watch(type, (newType, oldType) => {
 watch(target, (newTarget, oldTarget) => {
   if (newTarget !== oldTarget) {
     // 初期値更新
-    operator.value = 'Plus'
+    operator.value = newTarget === 'Area' ? 'Assign' : 'Plus'
     value.value = 0
   }
 })
@@ -75,7 +85,12 @@ const add = () => {
           {{ value }}
         </option>
       </select>
-      <input type="number" v-model="value" step="1" />
+      <select v-if="target === 'Area'" v-model="value">
+        <option v-for="(value, key) in areaLabel" :value="key" :key="key">
+          {{ value }}
+        </option>
+      </select>
+      <input v-else type="number" v-model="value" step="1" />
       <button @click="add">追加</button>
     </div>
   </div>

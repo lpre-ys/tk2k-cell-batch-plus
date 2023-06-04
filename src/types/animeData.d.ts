@@ -1,3 +1,5 @@
+import { Area } from './batchEdit'
+
 export type AnimeData = {
   title: string
   material: string
@@ -29,8 +31,10 @@ export type Effect = {
   sound: Sound
 }
 
+export type Area = 0 | 1 | 2
+
 export type Flash = {
-  area: number
+  area: Area
   r: number
   g: number
   b: number
