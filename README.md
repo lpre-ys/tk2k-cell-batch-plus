@@ -6,11 +6,16 @@ RPGツクール2000(2003)の戦闘アニメに対して、一括でパラメー�
 
 ## 起動方法
 
-Releaseから、最新バージョンのZIPをDL、解凍し、キラキラしたアイコンのexeを起動してください。
+[Releases](https://github.com/lpre-ys/tk2k-cell-batch-plus/releases)から、最新バージョンのZIPをDL、解凍し、キラキラしたアイコンのexeを起動してください。
+
+### ダウンロードURL
+
+https://github.com/lpre-ys/tk2k-cell-batch-plus/releases
 
 ## 使い方
 
 デモ動画あります
+※クリックでYouTubeへ。
 
 [![デモ動画](http://img.youtube.com/vi/HEn3zQwws_M/0.jpg)](https://www.youtube.com/watch?v=HEn3zQwws_M)
 
@@ -25,6 +30,10 @@ Releaseから、最新バージョンのZIPをDL、解凍し、キラキラし�
 その場合、下記ページを参考に、セキュリティ設定を変更してください。  
 
 https://github.com/lpre-ys/tk2k-effect-conductor/blob/main/doc/security.md
+
+稀に、セキュリティ設定済みでも、エラーメッセージが表示されることがあります。  
+その場合、読み込み・書き出しを何度かリトライしてみてください。  
+※何らかのタイミングが原因で、稀に不明なエラーが出ることがあります。
 
 ## author
 @lpre_ys
