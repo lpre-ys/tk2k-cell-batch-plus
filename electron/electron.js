@@ -1,6 +1,6 @@
 const path = require('path')
 
-const { BrowserWindow, app, ipcMain, dialog, shell } = require('electron')
+const { BrowserWindow, app, ipcMain, dialog, shell, session } = require('electron')
 const { tk2k, getEmptyData, write, read, parser } = require('tk2k-clipdata')
 
 let mainWindow
@@ -29,10 +29,18 @@ const createWindow = () => {
     return { action: 'deny' }
   })
 }
-// Passthrough is not supported, GL is disabled, ANGLE is とか言うエラーを消すヤツ
-app.disableHardwareAcceleration()
+// Passthrough is not supported, GL is disabled, ANGLE is とか言ぁE��ラーを消すヤチEapp.disableHardwareAcceleration()
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+    if (permission === 'geolocation') {
+      callback(false)
+      return
+    }
+    callback(true)
+  })
+  createWindow()
+})
 
 app.once('window-all-closed', () => app.quit())
 
