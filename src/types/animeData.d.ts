@@ -25,10 +25,13 @@ export type Cell = {
   alpha: number
 }
 
+export type Shake = 0 | 1 | 2
+
 export type Effect = {
   frame: number
   flash: Flash
   sound: Sound
+  shake: Shake
 }
 
 export type Area = 0 | 1 | 2

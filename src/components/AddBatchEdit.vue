@@ -5,7 +5,8 @@ import {
   effectTargetLabel,
   typeLabel,
   operatorLabel,
-  areaLabel
+  areaLabel,
+  shakeLabel
 } from '@/utils/labels'
 import { computed, ref, watch } from 'vue'
 
@@ -29,6 +30,10 @@ const operatorList = computed(() => {
     return { Assign: '=' }
   }
 
+  if (target.value === 'Shake') {
+    return { Assign: '=' }
+  }
+
   return operatorLabel
 })
 
@@ -46,7 +51,7 @@ watch(type, (newType, oldType) => {
 watch(target, (newTarget, oldTarget) => {
   if (newTarget !== oldTarget) {
     // 初期値更新
-    operator.value = newTarget === 'Area' ? 'Assign' : 'Plus'
+    operator.value = ['Area', 'Shake'].includes(newTarget) ? 'Assign' : 'Plus'
     value.value = 0
   }
 })
@@ -87,6 +92,11 @@ const add = () => {
       </select>
       <select v-if="target === 'Area'" v-model="value">
         <option v-for="(value, key) in areaLabel" :value="key" :key="key">
+          {{ value }}
+        </option>
+      </select>
+      <select v-else-if="target === 'Shake'" v-model="value">
+        <option v-for="(value, key) in shakeLabel" :value="key" :key="key">
           {{ value }}
         </option>
       </select>

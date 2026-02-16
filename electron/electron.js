@@ -7,7 +7,7 @@ let mainWindow
 
 const createWindow = () => {
   mainWindow = new BrowserWindow({
-    width: 1100,
+    width: 1150,
     height: 900,
     resizable: true,
     title: '一括指定 Plus',
@@ -29,7 +29,8 @@ const createWindow = () => {
     return { action: 'deny' }
   })
 }
-// Passthrough is not supported, GL is disabled, ANGLE is とか言ぁE��ラーを消すヤチEapp.disableHardwareAcceleration()
+// Passthrough is not supported, GL is disabled, ANGLE is とか言うエラーを消すヤツ
+app.disableHardwareAcceleration()
 
 app.whenReady().then(() => {
   session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
@@ -67,7 +68,8 @@ ipcMain.handle('read-info', () => {
               g: data.g ? parser.parseBer(data.g.raw) : 31,
               b: data.b ? parser.parseBer(data.b.raw) : 31,
               volume: data.volume ? parser.parseBer(data.volume.raw) : 31
-            }
+            },
+            shake: data.shake ? parser.parseBer(data.shake.raw) : 0
           }
         })
 
@@ -161,6 +163,8 @@ ipcMain.handle('write-anime', (event, jsonData) => {
         sound.pan.data = clamp(effectData.sound.pan, 0, 100)
       }
       effect.sound.data = sound
+
+      effect.shake.data = clamp(effectData.shake ?? 0, 0, 2);
 
       return { data: effect }
     })

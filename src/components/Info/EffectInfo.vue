@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Area, Effect } from '@/types/animeData'
+import type { Area, Shake, Effect } from '@/types/animeData'
 import type { BatchEdit, CellTarget, EffectTarget } from '@/types/batchEdit'
 import calcEditedEffects from '@/utils/calcEditedEffects'
-import { areaLabel } from '@/utils/labels'
+import { areaLabel, shakeLabel } from '@/utils/labels'
 import { computed, ref } from 'vue'
 import EditedFrameValue from './EditedFrameValue.vue'
 import EditedMinMaxValue from './EditedMinMaxValue.vue'
@@ -53,20 +53,22 @@ const toggleShow = () => {
           <tr>
             <th rowspan="2" class="header-line">Fr</th>
             <th colspan="4" class="header-line">効果音</th>
-            <th colspan="5">フラッシュ</th>
+            <th colspan="5" class="header-line">フラッシュ</th>
+            <th rowspan="2">ｼｪｲｸ*</th>
           </tr>
           <tr>
             <th>ファイル</th>
             <th>音量</th>
-            <th>テンポ</th>
+            <th>ﾃﾝﾎﾟ</th>
             <th class="header-line">ﾊﾞﾗﾝｽ</th>
             <th>範囲</th>
             <th>赤</th>
             <th>緑</th>
             <th>青</th>
-            <th>強さ</th>
+            <th class="header-line">強さ</th>
           </tr>
         </thead>
+
         <tbody>
           <tr v-for="(effect, index) in editedEffects" :key="index">
             <EditedFrameValue
@@ -135,7 +137,7 @@ const toggleShow = () => {
                 :max="31"
               />
               <EditedValue
-                class="number"
+                class="number line"
                 :pre-value="effects[index].flash.volume"
                 :value="effect.flash.volume"
                 :is-edited="checkEdited('FlashVolume')"
@@ -143,9 +145,11 @@ const toggleShow = () => {
                 :max="31"
               />
             </template>
+            <td>{{ shakeLabel[effect.shake as Shake] }}</td>
           </tr>
         </tbody>
       </table>
+      <p>* シェイクはRPGツクール2003でしか使えません</p>
     </div>
   </div>
 </template>
@@ -221,5 +225,8 @@ tbody tr:nth-child(odd) {
 .hidden {
   color: #9e9e9e;
   text-align: center;
+}
+p {
+  font-size: 0.7rem;
 }
 </style>

@@ -1,4 +1,4 @@
-import type { Area } from '@/types/animeData'
+import type { Area, Shake } from '@/types/animeData'
 import type { CellTarget, EffectTarget, Operator, TargetType } from '@/types/batchEdit'
 
 const operatorLabel: Record<Operator, string> = {
@@ -35,7 +35,8 @@ const effectTargetLabel: Record<EffectTarget, string> = {
   R: '赤',
   G: '緑',
   B: '青',
-  FlashVolume: '強さ'
+  FlashVolume: '強さ',
+  Shake: 'シェイク'
 }
 
 const areaLabel: Record<Area, string> = {
@@ -43,4 +44,10 @@ const areaLabel: Record<Area, string> = {
   1: '対象',
   2: '画面'
 }
-export { operatorLabel, typeLabel, cellTargetLabel, effectTargetLabel, areaLabel }
+
+const shakeLabel: Record<Shake, string> = {
+  0: 'なし',
+  1: '対象',
+  2: '画面'
+}
+export { operatorLabel, typeLabel, cellTargetLabel, effectTargetLabel, areaLabel, shakeLabel }

@@ -1,4 +1,4 @@
-import type { Effect, Flash, Sound } from '@/types/animeData'
+import type { Effect, Flash, Sound, Shake } from '@/types/animeData'
 import type { BatchEdit } from '@/types/batchEdit'
 import calcNumber from './calcNumber'
 
@@ -39,6 +39,9 @@ export default function (effects: Effect[], batchEdits: BatchEdit[]) {
         if (key === 'flashvolume') {
           newEffect.flash.volume = calcNumber(newEffect.flash.volume, operator, value)
         }
+      }
+      if (key === 'shake') {
+        newEffect.shake = calcNumber(newEffect.shake, operator, value) as Shake
       }
       return newEffect
     }, effect)

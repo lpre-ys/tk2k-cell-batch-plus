@@ -27,6 +27,7 @@ export type EffectTarget =
   | 'SoundVolume'
   | 'Pitch'
   | 'Pan'
+  | 'Shake'
 
 export type BatchEdit = {
   key: number
