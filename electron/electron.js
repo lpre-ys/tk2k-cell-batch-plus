@@ -66,7 +66,7 @@ ipcMain.handle('read-info', () => {
               r: data.r ? parser.parseBer(data.r.raw) : 31,
               g: data.g ? parser.parseBer(data.g.raw) : 31,
               b: data.b ? parser.parseBer(data.b.raw) : 31,
-              volume: data.volume ? parser.parseBer(data.volume.raw) : 0
+              volume: data.volume ? parser.parseBer(data.volume.raw) : 31
             }
           }
         })
