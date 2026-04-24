@@ -9,7 +9,7 @@ const props = defineProps<{
   batchEdits: BatchEdit[]
 }>()
 
-const emits = defineEmits(['update-batch-edits'])
+const emits = defineEmits(['update-batch-edits', 'clear', 'delete'])
 
 const localBatchEdits = ref<BatchEdit[]>([...props.batchEdits])
 
