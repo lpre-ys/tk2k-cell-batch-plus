@@ -4,11 +4,10 @@
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
     "types": ["vitest/globals"],
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   }
 }
