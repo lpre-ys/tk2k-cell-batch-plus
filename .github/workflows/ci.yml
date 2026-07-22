@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Rewrite git ssh -> https (tk2k-clipdata依存対策)
+        run: |
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+
+      - run: npm ci
+      - run: npm run lint:ci
+      - run: npm run type-check
+      - run: npm run test:ci
+      - run: npm run build-only
