@@ -14,7 +14,7 @@ const isRed = computed(() => {
 })
 
 const showValue = computed(() => {
-  let result = props.value
+  const result = props.value
 
   if (result < props.min) return props.min
 
